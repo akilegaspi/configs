@@ -1,1 +1,72 @@
-/home/aki/.Xresources
+XTerm*metaSendsEscape:true
+xterm*faceName: Inconsolata
+xterm*faceSize: 9
+xterm*renderFont: true
+URxvt*geometry: 240x84
+URxvt*loginShell: true
+URxvt*scrollColor: #777777
+URxvt*scrollstyle: plain
+URxvt*scrollTtyKeypress: true
+URxvt*scrollTtyOutput: false
+URxvt*scrollWithBuffer: false
+URxvt*secondaryScreen: true
+URxvt*secondaryScroll: true
+URxvt*skipScroll: true
+URxvt*scrollBar: false
+URxvt*scrollBar_right: false
+URxvt*scrollBar_floating: false
+URxvt*fading: 30
+URxvt*utmpInhibit: false
+URxvt*urgentOnBell: false
+URxvt*visualBell: true
+URxvt*mapAlert: true
+URxvt*mouseWheelScrollPage: false
+URxvt*font: xft:Inconsolata LGC:size=9,\
+	    xft:Terminus,\
+	    xft:Fantasque Sans Mono,\
+	    xft:PowerlineSymbols
+URxvt*letterSpace: -3
+URxvt*saveLines: 0
+URxvt*buffered: true
+URxvt*hold: false
+URxvt*internalBorder:
+URxvt*print-pipe: cat > $HOME/$(echo urxvt.dump.$(date +'%Y%M%d%H%m%S'))
+#define c0 #2E3440
+#define c1 #3B4252
+#define c2 #434C5E
+#define c3 #4C566A
+#define c4 #D8DEE9
+#define c5 #E5E9F0
+#define c6 #ECEFF4
+#define c7 #8FBCBB
+#define c8 #88C0D0
+#define c9 #81A1C1
+#define c10 #5E81AC
+#define c11 #BF616A
+#define c12 #D08770
+#define c13 #EBCB8B
+#define c14 #A3BE8C
+#define c15 #B48EAD
+
+*.foreground:   c4
+*.background:   c0
+*.cursorColor:  c4
+*fading: 35
+*fadeColor: c3
+
+*.color0: c1
+*.color1: c11
+*.color2: c14
+*.color3: c13
+*.color4: c9
+*.color5: c15
+*.color6: c8
+*.color7: c5
+*.color8: c3
+*.color9: c11
+*.color10: c14
+*.color11: c13
+*.color12: c9
+*.color13: c15
+*.color14: c7
+*.color15: c6

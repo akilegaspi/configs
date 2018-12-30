@@ -1,1 +1,0 @@
-/home/aki/.emacs.d
