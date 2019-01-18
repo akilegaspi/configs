@@ -21,11 +21,10 @@ URxvt*urgentOnBell: false
 URxvt*visualBell: true
 URxvt*mapAlert: true
 URxvt*mouseWheelScrollPage: false
-URxvt*font: xft:Inconsolata LGC:size=9,\
+URxvt*font: xft:Inconsolata LGC:size=10,\
 	    xft:Terminus,\
-	    xft:Fantasque Sans Mono,\
-	    xft:PowerlineSymbols
-URxvt*letterSpace: -3
+	    xft:Fantasque Sans Mono
+URxvt*letterSpace: -4
 URxvt*saveLines: 0
 URxvt*buffered: true
 URxvt*hold: false

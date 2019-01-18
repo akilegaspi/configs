@@ -1,32 +1,29 @@
-Config { font = "xft:Inconsolata LGC:size=13:style=Medium"
+Config { font = "xft:Inconsolata LGC:size=10:style=Medium"
        , additionalFonts = ["xft:Inconsolata:size=15.11:style=Bold","xft:FontAwesome:size=11.33"]
        , borderColor = "#451E3E"
        , borderWidth = 1
        , border = FullB
-       , bgColor = "#061E3E"
-       , fgColor = "#851E3E"
+       , bgColor = "#2F3B3D"
+       , fgColor = "#BBBBBB"
        , alpha = 255
-       , position = Bottom
+       , position = Top
        , textOffset = -1
        , iconOffset = -1
        , lowerOnStart = True
-       , pickBroadest = False
+       , pickBroadest = True
        , persistent = False
        , hideOnStart = False
        , iconRoot = "."
-       , allDesktops = True
+       , allDesktops = False
        , overrideRedirect = True
-       , commands = [ Run Weather "EGPF" ["-t","<station>: <tempC>C",
-                                          "-L","18","-H","25",
-                                          "--normal","green",
-                                          "--high","red",
-                                          "--low","lightblue"] 36000
-                    , Run Network "eth0" ["-L","0","-H","32",
+       , commands = [ Run Network "enp2s0" ["-L","0","-H","32",
                                           "--normal","green","--high","red"] 10
                     , Run Network "eth1" ["-L","0","-H","32",
                                           "--normal","green","--high","red"] 10
-                    , Run Cpu ["-L","3","-H","50",
-                               "--normal","green","--high","red"] 10
+                    , Run MultiCpu ["-t", "<total0>% <total1>% <total2>% <total3>% <total4>% <total5>% <total6>% <total7>% <total8>% <total9>% <total10>% <total11>%", "-L","30","-H","60",
+                               "--normal","#50A581","--high","#F5E9A9"] 10
+	            , Run CoreTemp ["-t", "<core0>C <core1>C <core2>C <core3>C <core4>C <core5>C <core6>C", "-L", "30", "-H", "50",
+                               "--normal", "#50A581", "--high", "#F5E9A9"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
                     , Run Com "uname" ["-s","-r"] "" 36000
@@ -34,6 +31,6 @@ Config { font = "xft:Inconsolata LGC:size=13:style=Medium"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%cpu% | %memory% * %swap% | %eth0% - %eth1% }\
-                    \{ <fc=#ee9a00>%date%</fc>| %EGPF% | %uname%"
+       , template = "%multicpu% | %coretemp% | %memory% * %swap% | %enp2s0% }\
+                    \{ <fc=#ee9a00>%date%</fc> | %uname%"
        }
