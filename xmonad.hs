@@ -437,7 +437,7 @@ myLogHook p = do
     , ppUrgent              = xmobarColor red    "" . wrap " " " "
     , ppHidden              = check
     , ppHiddenNoWindows     = const ""
-    , ppSep                 = xmobarColor red blue "  :  "
+    , ppSep                 = xmobarColor red nBColor "  :  "
     , ppWsSep               = " "
     , ppLayout              = xmobarColor yellow ""
     , ppOrder               = id
@@ -522,6 +522,7 @@ myLayoutHook = showWorkspaceName
                   standardLayouts = myGaps $ mySpacing
                       $ (suffixed "Std 2/3" $ ResizableTall 1 (1/20) (2/3) [])
                     ||| (suffixed "Std 1/2" $ ResizableTall 1 (1/20) (1/2) [])
+                    ||| (suffixed "Wide 3 Col" $ ThreeColMid 1 (1/20) (2/3) )
 
                   --  ||| fullTabs
                   --fullTabs = suffixed "Tabs Full" $ Simplest
@@ -713,7 +714,7 @@ myLayoutHook = showWorkspaceName
     --        its' own layout in a      separate
     --        Tall configuration        tab format
     --                                  layout
-    --
+LL    --
     -- Standard:
     -- ---------------------------------
     -- |                    |          |
@@ -1184,6 +1185,9 @@ restartXmonad :: X ()
 restartXmonad = do
   spawn "xmonad --restart"
 
+------------------------------------------------------------------------}}}
+-- Fade Hook                                                            {{{
+---------------------------------------------------------------------------
 myFadeHook = composeAll
     [ opaque -- default to opaque
     , isUnfocused --> opacity 0.85
