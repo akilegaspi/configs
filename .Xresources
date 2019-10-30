@@ -1,71 +1,36 @@
+Xft.dpi: 96
+Xft.antialias: 1
+Xft.hinting: 1
+Xft.autohint: 0
 XTerm*metaSendsEscape:true
-xterm*faceName: Inconsolata
+xterm*faceName: Roboto Mono for Powerline
+*VT100*font: fixed
 xterm*faceSize: 9
+xterm*utf8: 2
+xterm*letterSpace: -4
 xterm*renderFont: true
-URxvt*geometry: 240x84
-URxvt*loginShell: true
-URxvt*scrollColor: #777777
-URxvt*scrollstyle: plain
-URxvt*scrollTtyKeypress: true
-URxvt*scrollTtyOutput: false
-URxvt*scrollWithBuffer: false
-URxvt*secondaryScreen: true
-URxvt*secondaryScroll: true
-URxvt*skipScroll: true
-URxvt*scrollBar: false
-URxvt*scrollBar_right: false
-URxvt*scrollBar_floating: false
-URxvt*fading: 30
-URxvt*utmpInhibit: false
-URxvt*urgentOnBell: false
-URxvt*visualBell: true
-URxvt*mapAlert: true
-URxvt*mouseWheelScrollPage: false
-URxvt*font: xft:Inconsolata LGC:size=10,\
-	    xft:Terminus,\
-	    xft:Fantasque Sans Mono
-URxvt*letterSpace: -4
-URxvt*saveLines: 0
-URxvt*buffered: true
-URxvt*hold: false
-URxvt*internalBorder:
-URxvt*print-pipe: cat > $HOME/$(echo urxvt.dump.$(date +'%Y%M%d%H%m%S'))
-#define c0 #2E3440
-#define c1 #3B4252
-#define c2 #434C5E
-#define c3 #4C566A
-#define c4 #D8DEE9
-#define c5 #E5E9F0
-#define c6 #ECEFF4
-#define c7 #8FBCBB
-#define c8 #88C0D0
-#define c9 #81A1C1
-#define c10 #5E81AC
-#define c11 #BF616A
-#define c12 #D08770
-#define c13 #EBCB8B
-#define c14 #A3BE8C
-#define c15 #B48EAD
 
-*.foreground:   c4
-*.background:   c0
-*.cursorColor:  c4
-*fading: 35
-*fadeColor: c3
-
-*.color0: c1
-*.color1: c11
-*.color2: c14
-*.color3: c13
-*.color4: c9
-*.color5: c15
-*.color6: c8
-*.color7: c5
-*.color8: c3
-*.color9: c11
-*.color10: c14
-*.color11: c13
-*.color12: c9
-*.color13: c15
-*.color14: c7
-*.color15: c6
+*color0: #2b282b
+*color1: #e06e94
+*color2: #45b49a
+*color3: #e5c3ce
+*color4: #66998c
+*color5: #7c7d82
+*color6: #66988b
+*color7: #b9bdc4
+*color8: #2a282a
+*color9: #e06e94
+*color10: #83d0be
+*color11: #e5c3ce
+*color12: #62656c
+*color13: #44b399
+*color14: #004b32
+*color15: #d4d8e0
+*background: #0f0f0f
+*foreground: #cdd0d8
+*cursorColor: #c7c7c7
+! See "highlightColorMode" and "hm" options in XTerm manual page.
+*highlightTextColor: #000000
+*highlightColor: #c1ddff
+! No support for cursor text coloring; would be #feffff.
+! No support for bold coloring; would be #feffff.

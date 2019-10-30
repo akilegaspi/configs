@@ -2,7 +2,7 @@
 {-# LANGUAGE DeriveDataTypeable    #-}
 {-# LANGUAGE TypeSynonymInstances  #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-
+{-# LANGUAGE StandaloneDeriving    #-}
 ----------------------------------------------
 -- My XMonad Configuration
 -- Adrian King Legaspi (aki.legaspi@gmail.com)
@@ -19,7 +19,7 @@
 - Customize workspace and make them visible on the xmobar
 
 -}
-import Control.Monad (liftM, liftM2, join)  -- myManageHookShift
+import Control.Monad (liftM, liftM2, join, unless)  -- myManageHookShift
 import Data.List
 import qualified Data.Map as M
 import Data.Monoid
@@ -96,6 +96,7 @@ import XMonad.Prompt                        -- to get my old key bindings workin
 import XMonad.Prompt.ConfirmPrompt          -- don't just hard quit
 
 import XMonad.Util.Cursor
+import XMonad.Util.CustomKeys
 import XMonad.Util.EZConfig                 -- removeKeys, additionalKeys
 import XMonad.Util.Loggers
 import XMonad.Util.NamedActions
@@ -122,11 +123,11 @@ myStatusBar    = "xmobar -x0 /home/aki/.xmobarrc"
 myBrowser      = "firefox"
 myBrowserClass = myBrowser
 myLauncher     = "dmenu_run"
-myTerminal     = "urxvt"
+myTerminal     = "xterm"
 -- Sizes
-bWidth  = 0
+bWidth  = 3
 gap     = 10
-topbar  = 10
+topbar  = 0
 prompt  = 20
 status  = 20
 
@@ -140,12 +141,13 @@ myConfig p = def
   { borderWidth        = bWidth
   , terminal           = myTerminal
   , workspaces         = myWorkspaces
-  , normalBorderColor  = nBColor
-  , focusedBorderColor = fBColor
+  , normalBorderColor  = myNormalBorderColor
+  , focusedBorderColor = myFocusedBorderColor
   , logHook            = myLogHook p
   , manageHook         = myManageHook
   , handleEventHook    = myHandleEventHook
   , layoutHook         = myLayoutHook
+--  , keys               = customKeys (const []) myKeys
   , mouseBindings      = myMouseBindings
   , startupHook        = myStartupHook
   , clickJustFocuses   = myClickJustFocuses
@@ -187,8 +189,68 @@ white   = "#FFFFFF"
 nBColor = "#2E3440"
 fBColor = "#D8DEE9"
 
-mNormalBorderColor  = "#888888"
-mFocusedBorderColor = active
+color0 = "#2b282b"
+color1 = "#e06e94"
+color2 = "#45b49a"
+color3 = "#e5c3ce"
+color4 = "#66998c"
+color5 = "#7c7d82"
+color6 = "#66988b"
+color7 = "#b9bdc4"
+color8 = "#2a282a"
+color9 = "#e06e94"
+color10 = "#83d0be"
+color11 = "#e5c3ce"
+color12 = "#62656c"
+color13 = "#44b399"
+color14 = "#004b32"
+color15 = "#d4d8e0"
+colorBg1 = "#0f0f0f"
+colorBg2 = "#555555"
+colorFg1 = "#bc23a5"
+colorFg2 = "#cfc8f7"
+
+type HexColor = String
+type ColorPair = (HexColor, HexColor)
+type ColorMap = M.Map Colors ColorPair
+
+data Colors = Black
+            | Red
+            | Green
+            | Yellow
+            | Blue
+            | Magenta
+            | Cyan
+            | White
+            | BG
+            | FG
+deriving instance (Ord Colors)
+deriving instance (Eq Colors)
+
+colors :: ColorMap
+colors = M.fromList
+    [ (Black   , (color0,   color8  ))
+    , (Red     , (color1,   color9  ))
+    , (Green   , (color2,   color10 ))
+    , (Yellow  , (color3,   color11 ))
+    , (Blue    , (color4,   color12 ))
+    , (Magenta , (color5,   color13 ))
+    , (Cyan    , (color6,   color14 ))
+    , (White   , (color7,   color15 ))
+    , (BG      , (colorBg1, colorBg2))
+    , (FG      , (colorFg1, colorFg2))
+    ]
+
+myColor :: Colors -> Int -> String
+myColor color n = case M.lookup color colors of
+                    Nothing -> "#000000"
+                    Just (c1, c2) -> if n == 0 then c1 else c2
+
+
+
+
+myNormalBorderColor  = myColor Green 0
+myFocusedBorderColor = myColor Cyan 1
 
 active        = violet
 activeWarn    = magenta
@@ -418,6 +480,7 @@ myManageHook =
 myHandleEventHook = docksEventHook
                 <+> fadeWindowsEventHook
                 <+> handleEventHook def
+                <+> removeBordersEventHook
                 <+> XMonad.Layout.Fullscreen.fullscreenEventHook
 
 --------------------------------------------------------------------------
@@ -426,20 +489,20 @@ myHandleEventHook = docksEventHook
 myLogHook p = do
   copies <- wsContainingCopies
   let check ws | ws `elem` copies =
-                 pad . xmobarColor yellow red . wrap "*" " " $ ws
+                 pad . xmobarColor (myColor Yellow 1) (myColor Red 1) . wrap "*" " " $ ws
                | otherwise = pad ws
   fadeWindowsLogHook myFadeHook
   ewmhDesktopsLogHook
   dynamicLogWithPP $ def
-    { ppCurrent             = xmobarColor active "" . wrap "[" "]"
-    , ppTitle               = xmobarColor active "" . shorten 50
-    , ppVisible             = xmobarColor base0  "" . wrap "(" ")"
-    , ppUrgent              = xmobarColor red    "" . wrap " " " "
+    { ppCurrent             = xmobarColor (myColor Green 1) "" . wrap "[" "]"
+    , ppTitle               = xmobarColor (myColor Green 1) "" . shorten 50
+    , ppVisible             = xmobarColor (myColor Yellow 1)  "" . wrap "(" ")"
+    , ppUrgent              = xmobarColor (myColor Cyan 1)    "" . wrap " " " "
     , ppHidden              = check
     , ppHiddenNoWindows     = const ""
-    , ppSep                 = xmobarColor red nBColor "  :  "
+    , ppSep                 = xmobarColor (myColor Red 1) (myColor BG 1) "  :  "
     , ppWsSep               = " "
-    , ppLayout              = xmobarColor yellow ""
+    , ppLayout              = xmobarColor (myColor Yellow 1) ""
     , ppOrder               = id
     , ppOutput              = hPutStrLn p
     , ppSort                = fmap
@@ -1165,7 +1228,8 @@ myStartupHook = do
     -- init-tilingwm sets up all major "desktop environment" like components
     -- spawnOnce "$HOME/bin/wm/init-tilingwm"
     -- spawn "/home/ethan/bin/wm/init-tilingwm"
-    spawn "feh --bg-scale $HOME/Downloads/43047_serial_experiments_lain.jpg"
+    spawn "feh --bg-scale $HOME/wp/vpw.jpg"
+    spawn "xcompmgr -cCfF"
 
     -- init-tray kills and restarts stalone tray, hence just "spawn" so it
     -- runs on restart and will suffice to reposition tray on display changes
@@ -1189,18 +1253,32 @@ restartXmonad = do
 -- Fade Hook                                                            {{{
 ---------------------------------------------------------------------------
 myFadeHook = composeAll
-    [ opaque -- default to opaque
-    , isUnfocused --> opacity 0.85
-    , (className =? "XTerm") <&&> (isUnfocused) --> opacity 0.9
-    , (className =? "URxvt") <&&> (isUnfocused) --> opacity 0.9
-    , fmap ("Firefox" `isPrefixOf`) className --> opaque
+    [ isUnfocused --> opacity 0.85
     , isDialog --> opaque 
     , isUnfocused --> opacity 0.55
     , isFloating  --> opacity 0.75
+    , (className =? "XTerm") <&&> (isUnfocused) --> opacity 0.9
+    , (className =? "URxvt") <&&> (isUnfocused) --> opacity 0.9
+    , fmap ("Firefox" `isPrefixOf`) className --> opaque
+    , opaque
     ]
 
-myClickJustFocuses  = False
-myFocusFollowsMouse = True
+removeBordersEventHook :: Event -> X All
+removeBordersEventHook ev = do
+  whenX (className =? "mpv" `runQuery` w) $ withDisplay $ \d -> do
+    cw <- io $ wa_border_width <$> getWindowAttributes d w
+    unless (cw == 0) $ do
+      io $ setWindowBorderWidth d w 0
+      refresh
+  return (All True)
+  where
+    w = ev_window ev
+
+myClickJustFocuses :: Bool
+myClickJustFocuses  = True
+
+myFocusFollowsMouse :: Bool
+myFocusFollowsMouse = False
 
 -- Utils
 

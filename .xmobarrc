@@ -1,11 +1,11 @@
 Config {
   font = "xft:Inconsolata LGC:size=10:style=Medium"
   , additionalFonts = ["xft:Inconsolata:size=15.11:style=Bold","xft:FontAwesome:size=11.33"]
-  , borderColor = "#451E3E"
+  , borderColor = "#E06E94"
   , borderWidth = 1
   , border = FullB
-  , bgColor = "#2F3B3D"
-  , fgColor = "#BBBBBB"
+  , bgColor = "#555555"
+  , fgColor = "#e06e94"
   , alpha = 255
   , position = Top
   , textOffset = -1
@@ -27,7 +27,7 @@ Config {
               ] 10
       , Run Network "enp2s0" ["-L","0","-H","32",
                               "--normal","green","--high","red"] 10
-      , Run MPD ["-t", "<state>: <artist> - <track>"] 10
+--      , Run MPD ["-t", "<state>: <artist> - <track>"] 10
       , Run Memory
         [ "-t","<usedvbar>"
         , "-p", "2"
