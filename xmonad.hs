@@ -125,7 +125,7 @@ myBrowserClass = myBrowser
 myLauncher     = "dmenu_run"
 myTerminal     = "xterm"
 -- Sizes
-bWidth  = 3
+myBorderWidth  = 3
 gap     = 10
 topbar  = 0
 prompt  = 20
@@ -138,7 +138,7 @@ main = do
   
 
 myConfig p = def
-  { borderWidth        = bWidth
+  { borderWidth        = myBorderWidth
   , terminal           = myTerminal
   , workspaces         = myWorkspaces
   , normalBorderColor  = myNormalBorderColor
@@ -249,8 +249,8 @@ myColor color n = case M.lookup color colors of
 
 
 
-myNormalBorderColor  = myColor Green 0
-myFocusedBorderColor = myColor Cyan 1
+myNormalBorderColor  = myColor Cyan 1
+myFocusedBorderColor = myColor Green 0
 
 active        = violet
 activeWarn    = magenta

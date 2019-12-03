@@ -1,9 +1,9 @@
 Config {
-  font = "xft:Inconsolata LGC:size=10:style=Medium"
-  , additionalFonts = ["xft:Inconsolata:size=15.11:style=Bold","xft:FontAwesome:size=11.33"]
+  font = "xft:Space Mono for Powerline:size=10:style=Regular"
+  , additionalFonts = ["xft:FontAwesome:size=10:style=Regular"]
   , borderColor = "#E06E94"
   , borderWidth = 1
-  , border = FullB
+  , border = BottomB
   , bgColor = "#555555"
   , fgColor = "#e06e94"
   , alpha = 255
@@ -18,27 +18,27 @@ Config {
   , allDesktops = False
   , overrideRedirect = True
   , commands = [
-      Run Cpu [ "-t","<fn=1>\xf085</fn> C/M <vbar>"
-                --, "-p", "2"
-              , "-L", "40"
-              , "-H", "60"
-              , "-l", "#586e75"
-              , "-h", "#dc322f" -- red
-              ] 10
+      Run MultiCpu ["-t", "<total0> <total1> <total2> <total3> <total4> <total5> <total6> <total7> <total8> <total9> <total10> <total11>"
+                   , "-L", "40"
+                   , "-H", "70"
+                   , "-l", "#66988B"
+                   , "-h", "#E06E94"] 10
+      , Run MultiCoreTemp [] 10
+      , Run Swap [] 10
       , Run Network "enp2s0" ["-L","0","-H","32",
-                              "--normal","green","--high","red"] 10
---      , Run MPD ["-t", "<state>: <artist> - <track>"] 10
+                              "--normal","green","--high","yellow"] 10
       , Run Memory
-        [ "-t","<usedvbar>"
+        [ "-t","<fn=1>\xf2db</fn> : <used>"
         , "-p", "2"
-        , "-l", "#586e75"
+        , "-l", "#ffffff"
         , "-h", "#268bd2"
         ] 10
---        , Run Date "%a %b %_d %Y %H:%M:%S" "date"
+      , Run Mpris2 "spotify" [ "-t", "<title> - <artist>"
+                             ] 10
       , Run StdinReader
       ]
   , sepChar  = "%"
   , alignSep = "}{"
-  , template = " %StdinReader% }\
-               \{ %mpd% <fc=#ee9a00>%date%</fc>%cpu%%memory% %enp2s0%"
+  , template = " %StdinReader% | %mpris2% } %date% \
+               \{ %multicpu% | %multicoretemp% | %memory% | %swap% | %enp2s0%"
   }
